@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchema";
 import { z } from "zod";
@@ -28,13 +28,6 @@ const NewIssuePage = () => {
     });
     const [error, setError] = useState('');
     const [isSubmitting, setSubmitting] = useState(false);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            // Now we are in the browser and can safely use navigator
-            console.log(navigator.userAgent);
-        }
-    }, []);
 
     const onSubmit = handleSubmit(async (data) => {
         try {
