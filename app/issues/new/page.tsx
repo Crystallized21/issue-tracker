@@ -13,6 +13,11 @@ import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
 
+if (typeof window !== 'undefined') {
+  // Now we are in the browser and can safely use navigator
+  console.log(navigator.userAgent);
+}
+
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
