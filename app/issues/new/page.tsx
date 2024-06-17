@@ -1,7 +1,6 @@
 'use client';
 
 import {Button, Callout, TextField} from '@radix-ui/themes';
-import SimpleMDE from "react-simplemde-editor";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
@@ -12,8 +11,15 @@ import { createIssueSchema } from "@/app/validationSchema";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
+import dynamic from "next/dynamic";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
+
+const DynamicMDE = dynamic(
+    () => import('react-simplemde-editor').then((mod) => mod.default), // Only import the default export if that is what you are using. If you are using named exports, you can use the curly braces
+    { ssr: false }
+);
+
 
 const NewIssuePage = () => {
     const router = useRouter();
@@ -24,7 +30,7 @@ const NewIssuePage = () => {
     const [isSubmitting, setSubmitting] = useState(false);
 
     useEffect(() => {
-        if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
+        if (typeof window !== 'undefined') {
             // Now we are in the browser and can safely use navigator
             console.log(navigator.userAgent);
         }
@@ -57,7 +63,9 @@ const NewIssuePage = () => {
                 <Controller
                     name="description"
                     control={control}
-                    render={({field}) => <SimpleMDE placeholder="Description" {...field}/>}
+                    render={({ field }) => (
+                        <DynamicMDE placeholder="Description" {...field} />
+                    )}
                 />
                 <ErrorMessage>
                     {errors.description?.message}
