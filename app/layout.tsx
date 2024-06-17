@@ -6,6 +6,7 @@ import "./globals.css";
 import NavBar from "@/app/NavBar";
 import '@radix-ui/themes/styles.css';
 import {Theme} from "@radix-ui/themes";
+import React from "react";
 
 const inter = Inter({
   subsets: ["latin"],
