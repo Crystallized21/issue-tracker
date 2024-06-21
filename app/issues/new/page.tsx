@@ -16,7 +16,7 @@ import dynamic from "next/dynamic";
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const DynamicMDE = dynamic(
-    () => import('react-simplemde-editor').then((mod) => mod.default), // Only import the default export if that is what you are using. If you are using named exports, you can use the curly braces
+    () => import('react-simplemde-editor').then((mod) => mod.default),
     { ssr: false }
 );
 
