@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/app/NavBar";
 import '@radix-ui/themes/styles.css';
-import {Theme} from "@radix-ui/themes";
+import {Container, Theme} from "@radix-ui/themes";
 import React from "react";
 
 const inter = Inter({
@@ -29,7 +29,9 @@ export default function RootLayout({
         <Theme accentColor="violet">
           <NavBar/>
             <main className="p-5">
+              <Container>
                 {children}
+              </Container>
             </main>
           </Theme>
       </body>
