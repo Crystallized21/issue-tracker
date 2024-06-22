@@ -21,8 +21,8 @@ const IssueDetailPage = async ({ params }: Props) => {
     await delay(1000);
 
     return (
-        <Grid columns={{initial: "1", sm: "5"}} gap="5">
-            <Box className="md:col-span-4">
+        <Grid columns={{initial: '1', sm: '5'}} gap="5">
+            <Box className='col-span-4'>
                 <IssueDetails issue={issue}/>
             </Box>
             <Box>

@@ -6,7 +6,7 @@ import {Issues} from "@prisma/client";
 
 const IssueDetails = ({ issue }: { issue: Issues}) => {
     return (
-        <div>
+        <>
             <Heading>{issue.title}</Heading>
             <Flex gap="3" my="2">
                 <IssueStatusBadge status={issue.status}/>
@@ -15,7 +15,7 @@ const IssueDetails = ({ issue }: { issue: Issues}) => {
             <Card className="prose max-w-full" mt="4">
                 <ReactMarkdown>{issue.description}</ReactMarkdown>
             </Card>
-        </div>
+        </>
     );
 };
 
