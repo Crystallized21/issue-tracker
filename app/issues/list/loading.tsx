@@ -1,13 +1,10 @@
-import React from 'react'
+import React from 'react';
 import {Table} from "@radix-ui/themes";
-import prisma from "@/prisma/client";
-import delay from "delay";
-import IssueActions from "@/app/issues/IssueActions";
-import {IssueStatusBadge, Link,} from '@/app/components';
+import IssueActions from "@/app/issues/list/IssueActions";
+import { Skeleton } from "@/app/components";
 
-const IssuesPage = async () => {
-    const issues = await prisma.issues.findMany();
-    await delay(500);
+const LoadingIssuesPage = () => {
+    const issues = [1, 2, 3, 4, 5]
 
     return (
         <div>
@@ -22,27 +19,23 @@ const IssuesPage = async () => {
                 </Table.Header>
                 <Table.Body>
                     {issues.map(issues => (
-                        <Table.Row key={issues.id}>
+                        <Table.Row key={issues}>
                             <Table.Cell>
-                                <Link href={`/issues/${issues.id}`}>
-                                    {issues.title}
-                                </Link>
+                                <Skeleton/>
                                 <div className="block md:hidden">
-                                    <IssueStatusBadge status={issues.status}/>
+                                    <Skeleton/>
                                 </div>
                             </Table.Cell>
                             <Table.Cell className="hidden md:table-cell">
-                                <IssueStatusBadge status={issues.status}/>
+                                <Skeleton/>
                             </Table.Cell>
-                            <Table.Cell className="hidden md:table-cell">{issues.createdAt.toDateString()}</Table.Cell>
+                            <Table.Cell className="hidden md:table-cell"><Skeleton/></Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>
             </Table.Root>
         </div>
+    );
+};
 
-    )
-}
-
-export const dynamic = 'force-dynamic';
-export default IssuesPage
+export default LoadingIssuesPage;

@@ -1,10 +1,13 @@
-import React from 'react';
+import React from 'react'
 import {Table} from "@radix-ui/themes";
-import IssueActions from "@/app/issues/IssueActions";
-import { Skeleton } from "@/app/components";
+import prisma from "@/prisma/client";
+import delay from "delay";
+import IssueActions from "@/app/issues/list/IssueActions";
+import {IssueStatusBadge, Link,} from '@/app/components';
 
-const LoadingIssuesPage = () => {
-    const issues = [1, 2, 3, 4, 5]
+const IssuesPage = async () => {
+    const issues = await prisma.issues.findMany();
+    await delay(500);
 
     return (
         <div>
@@ -19,23 +22,27 @@ const LoadingIssuesPage = () => {
                 </Table.Header>
                 <Table.Body>
                     {issues.map(issues => (
-                        <Table.Row key={issues}>
+                        <Table.Row key={issues.id}>
                             <Table.Cell>
-                                <Skeleton/>
+                                <Link href={`/issues/${issues.id}`}>
+                                    {issues.title}
+                                </Link>
                                 <div className="block md:hidden">
-                                    <Skeleton/>
+                                    <IssueStatusBadge status={issues.status}/>
                                 </div>
                             </Table.Cell>
                             <Table.Cell className="hidden md:table-cell">
-                                <Skeleton/>
+                                <IssueStatusBadge status={issues.status}/>
                             </Table.Cell>
-                            <Table.Cell className="hidden md:table-cell"><Skeleton/></Table.Cell>
+                            <Table.Cell className="hidden md:table-cell">{issues.createdAt.toDateString()}</Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>
             </Table.Root>
         </div>
-    );
-};
 
-export default LoadingIssuesPage;
+    )
+}
+
+export const dynamic = 'force-dynamic';
+export default IssuesPage
