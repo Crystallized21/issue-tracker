@@ -11,15 +11,10 @@ import { issueSchema } from "@/app/validationSchema";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
-import dynamic from "next/dynamic";
 import {Issues} from "@prisma/client";
+import SimpleMDE from 'react-simplemde-editor';
 
 type IssueForm = z.infer<typeof issueSchema>;
-
-const DynamicMDE = dynamic(
-    () => import('react-simplemde-editor').then((mod) => mod.default),
-    { ssr: false }
-);
 
 const IssueForm = ({ issue }: { issue?: Issues }) => {
     const router = useRouter();
@@ -64,7 +59,7 @@ const IssueForm = ({ issue }: { issue?: Issues }) => {
                     control={control}
                     defaultValue={issue?.description}
                     render={({ field }) => (
-                        <DynamicMDE placeholder="Description" {...field} />
+                        <SimpleMDE placeholder="Description" {...field} />
                     )}
                 />
                 <ErrorMessage>
