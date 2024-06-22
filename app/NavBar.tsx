@@ -7,6 +7,7 @@ import {usePathname} from "next/navigation";
 import classNames from "classnames";
 import {useSession} from "next-auth/react";
 import {Avatar, Box, Container, DropdownMenu, Flex, Text} from "@radix-ui/themes";
+import {Skeleton} from "@/app/components";
 
 const NavBar = () => {
 
@@ -27,6 +28,8 @@ const NavBar = () => {
         </nav>
     )
 }
+
+// TODO provide a better way to reuse the components, separate the files prob.
 
 const NavLinks = () => {
     const currentPath= usePathname();
@@ -53,12 +56,10 @@ const NavLinks = () => {
     );
 }
 
-// TODO provide a better way to reuse the components, separate the files prob.
-
 const AuthStatus = () => {
     const {status, data: session} = useSession();
 
-    if (status === 'loading') return null;
+    if (status === 'loading') return <Skeleton width="3rem"/>;
 
     if (status === 'unauthenticated') {
         return <Link className="nav-link" href="api/auth/signin">Login</Link>;
