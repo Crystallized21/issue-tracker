@@ -8,6 +8,8 @@ import {Container, Theme} from "@radix-ui/themes";
 import React from "react";
 import AuthProvider from "@/app/auth/Provider";
 import QueryClientProvider from "@/app/QueryClientProvider";
+import { Analytics } from "@vercel/analytics/react";
+import {SpeedInsights} from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,6 +39,8 @@ export default function RootLayout({
             </Theme>
           </AuthProvider>
         </QueryClientProvider>
+      <Analytics/>
+      <SpeedInsights/>
       </body>
     </html>
   );
