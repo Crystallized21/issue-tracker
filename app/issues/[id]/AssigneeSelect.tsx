@@ -47,8 +47,6 @@ const AssigneeSelect = ({ issue }: {issue: Issues}) => {
     );
 };
 
-// test
-
 const useUsers = () => useQuery<User[]>({
     queryKey: ['users'],
     queryFn: () => axios.get('/api/users').then(res => res.data),
