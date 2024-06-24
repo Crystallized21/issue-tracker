@@ -2,7 +2,6 @@ import React, { cache } from 'react';
 import prisma from "@/prisma/client";
 import {notFound} from "next/navigation";
 import {Box, Flex, Grid} from "@radix-ui/themes";
-import delay from "delay";
 import EditIssueButton from "@/app/issues/[id]/EditIssueButton";
 import IssueDetails from "@/app/issues/[id]/IssueDetails";
 import DeleteIssueButton from "@/app/issues/[id]/DeleteIssueButton";
@@ -22,8 +21,6 @@ const IssueDetailPage = async ({ params }: Props) => {
     const issue = await fetchUser(parseInt(params.id));
 
     if (!issue) notFound();
-
-    await delay(1000);
 
     return (
         <Grid columns={{initial: '1', sm: '5'}} gap="5">
